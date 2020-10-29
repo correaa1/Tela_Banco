@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, Switch, StyleSheet, TextInput} from 'react-native';
 
 import {Picker} from '@react-native-picker/picker';
-import Slider from '@react-native-community/slider';
+import {Slider} from 'react-native';
 
 export default class App extends Component {
   constructor(props) {
@@ -12,6 +12,8 @@ export default class App extends Component {
         {key: 1, nome: 'M'},
         {key: 2, nome: 'F'},
       ],
+      valor: 50,
+      status: false,
     };
   }
 
@@ -29,13 +31,37 @@ export default class App extends Component {
 
         <Picker
           selectedValue={this.state.sexo}
-          style={{height: 20, width: 80}}
+          style={{height: 20, width: 80, marginTop: 5}}
           onValueChange={(itemValue, itemIndex) =>
             this.setState({sexo: itemValue})
           }>
           {sexosItem}
         </Picker>
-        <Slider minimumValue={0} maximumValue={100} />
+        <Slider
+          style={{marginTop: 30}}
+          minimumValue={0}
+          maximumValue={100}
+          onValueChange={(valorSelecionado) =>
+            this.setState({valor: valorSelecionado})
+          }
+          value={this.state.valor}
+        />
+
+        <Text style={{textAlign: 'center', fontSize: 20}}>
+          Seu limite: {this.state.valor.toFixed(1)} R$
+        </Text>
+
+        <View style={styles.container2}>
+          <Text style={{textAlign: 'center', fontSize: 15, width: 200}}>
+            Estudante
+          </Text>
+          <Switch
+            value={this.state.status}
+            onValueChange={(valorSwitch) =>
+              this.setState({status: valorSwitch})
+            }
+          />
+        </View>
       </View>
     );
   }
@@ -48,12 +74,22 @@ const styles = StyleSheet.create({
   input: {
     height: 50,
     borderWidth: 1,
-    borderColor: '#222',
-    marginTop: 10,
+    borderRadius: 10,
+    borderColor: '#454545',
+    margin: 10,
+    paddingLeft: 20,
   },
   titulo: {
     height: 20,
     width: 200,
     textAlign: 'left',
+    marginTop: 30,
+  },
+  container2: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: 20,
   },
 });
