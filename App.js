@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, Switch, StyleSheet, TextInput} from 'react-native';
+import {View, Text, Switch, StyleSheet, TextInput, Button} from 'react-native';
 
 import {Picker} from '@react-native-picker/picker';
 import {Slider} from 'react-native';
@@ -14,7 +14,16 @@ export default class App extends Component {
       ],
       valor: 50,
       status: false,
+      input: '',
     };
+    this.conta = this.conta.bind(this);
+  }
+  conta() {
+    if (this.state.input === '') {
+      alert('Complete todos os campos');
+    }
+
+    return;
   }
 
   render() {
@@ -25,7 +34,11 @@ export default class App extends Component {
       <View>
         <TextInput
           style={styles.input}
-          placeholder="Digite seu nome"></TextInput>
+          placeholder="Digite seu nome: "></TextInput>
+
+        <TextInput
+          style={styles.input}
+          placeholder="Digite sua idade: "></TextInput>
 
         <Text style={styles.titulo}> Sexo </Text>
 
@@ -61,6 +74,8 @@ export default class App extends Component {
               this.setState({status: valorSwitch})
             }
           />
+
+          <Button title="Cria Conta" onPress={this.conta} />
         </View>
       </View>
     );
@@ -74,10 +89,10 @@ const styles = StyleSheet.create({
   input: {
     height: 50,
     borderWidth: 1,
-    borderRadius: 10,
+    borderRadius: 5,
     borderColor: '#454545',
-    margin: 10,
-    paddingLeft: 20,
+    marginTop: 10,
+    paddingLeft: 10,
   },
   titulo: {
     height: 20,
@@ -92,4 +107,5 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     padding: 20,
   },
+  conta: {},
 });
